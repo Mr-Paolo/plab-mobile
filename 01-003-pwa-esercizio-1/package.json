@@ -1,0 +1,22 @@
+{
+  "name": "pwa-esercizio-1",
+  "version": "1.0.0",
+  "description": "Una guida per le pwa.",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server"
+  },
+  "keywords": [
+    "pwa",
+    "progressive",
+    "web",
+    "app",
+    "complete",
+    "tutorial"
+  ],
+  "author": "Paolo Cargnin",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.10.0"
+  }
+}
