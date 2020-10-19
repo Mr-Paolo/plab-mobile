@@ -1,0 +1,22 @@
+{
+  "name": "pwa-guide-indexdb",
+  "version": "1.0.0",
+  "description": "una guida sulla pwa",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -c-1"
+  },
+  "keywords": [
+    "pwa",
+    "progressive",
+    "web",
+    "app",
+    "complete",
+    "tutorial"
+  ],
+  "author": "Paolo Cargnin",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  }
+}
