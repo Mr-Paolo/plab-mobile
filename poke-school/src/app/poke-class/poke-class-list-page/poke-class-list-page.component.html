@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button [text]="getBackButtonText()" routerLink="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="type">
+
+  <ion-list-header>
+    <ion-label>Membri della classe {{type.name}} ({{type.pokemon.length}}) </ion-label>
+  </ion-list-header>
+
+  <ion-list>
+
+    <ion-item *ngFor="let pokemon of type.pokemon">
+      <ion-thumbnail
+        slot="start">
+        <img [src]="printThumbUrl(pokemon.pokemon)">
+      </ion-thumbnail>
+      <ion-label>{{pokemon.pokemon.name}}</ion-label>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,12 @@
+Il manifest.json Serve a:
+    (corretta) Impostae il modo in cui l'applicazione verrà salvata nel dispositivo una volta aggiunga alla schermata home
+    Visualizzare meglio il sito da parte del browser
+    Creare un thread principale, collegato a quello eseguito dal client, che possa controlalre i processi in background dell'applicazione
+    Ad aiutare i motori di ricerca ad individuare meglio il proprio sito web
+
+
+Il corretto modo di inserire il manifest.json nel sito è: 
+    <meta content="manifest" type="/manifest.webmanifest">
+    <script src="manifest" href="/manifest.webmanifest">
+    <link src="manifest" href="/manifest.webmanifest">
+    (corretta)<link rel="manifest" href="/manifest.json">

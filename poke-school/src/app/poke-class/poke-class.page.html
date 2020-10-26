@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>poke-class</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="type">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{type.name}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>
+        Partecipanti alla classe: {{type.pokemon.length}}
+      </p>
+
+      <ion-button [routerLink]="['list']">Lista dei partecipanti</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

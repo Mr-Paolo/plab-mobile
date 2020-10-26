@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>pokemon</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="pokemon">
+  <ion-card [formGroup]="pokemonForm">
+    <img [src]="pokemon.sprites.other['official-artwork'].front_default" />
+    <ion-card-header>
+      <ion-card-subtitle>#{{pokemon.id}}</ion-card-subtitle>
+      <ion-card-title>{{pokemon.name}}</ion-card-title>
+    </ion-card-header>
+  
+
+    <ion-card-content>
+      <ion-input placeholder="Enter Input" formControlName="name"></ion-input>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
