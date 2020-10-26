@@ -1,0 +1,13 @@
+
+<div class="accordion">
+    <div class="card">
+        <div class="card-header" (click)="instructions = !instructions">
+            <b>{{title}}</b>
+        </div>
+        <div class="collapse" [ngClass]="{'show':instructions}">
+            <div class="card-body">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>  

@@ -1,0 +1,96 @@
+<app-step title="01- Setup dei fields : FormGroup e FormControl">
+    <ul>
+        <li>Prima cosa, sbarazziamoci di <code>FormsModule</code>, usiamo <code>ReactiveFormsModule</code></li>
+        <li>Settiamo la proprietà <code>signupForm: FormGroup;</code>, si può inizializzare il form fin da subito, ma meglio farlo a <code>ngOnInit</code></li>
+        <li>Inizializziamo il form e inseriamo i campi <code>this.signupForm = new FormGroup()</code>, usiamo quidni: <code>'username':new FormControl(defaultValue)</code></li>
+        <li>Inseriamo anche i campi email e gender (quest'ultimo settato a male)</li>
+    </ul>
+</app-step>
+
+<app-step title="02- Binding con l'html e submit">
+    <ul>
+        <li>Inanzi tutto collego il form: <code>[formGroup]="signupForm"</code></li>
+        <li>Poi colleghiamo tutti i campi: <code>formControlName="username"</code></li>
+        <li>Proprio come i template driven, usiamo l'evento ngSubmit: <code>(ngSubmit) ="onSubmit()"</code></li>
+        <li><b class="text-danger">DIY</b>: Aggiungiamo un console.log e vediamo di che forma è il nostro <code>this.signupForm</code></li>
+    </ul>
+</app-step>
+
+<app-step title="03- Validazione">
+    <ul>
+        <li>In <code>new FormControl('defaultValue')</code>, aggiungiamo un secondo parametro: <code>Validators.required</code></li>
+        <li><b class="text-danger">DIY:</b>  Possiamo Aggiungerne di più con un array, aggiungiamo il validator email</li>
+        <li>Diamo un occhiata all'html e i relativi input!</li>
+    </ul>
+    <p>Aggiungiamo la valdazione all'html</p>
+    <ul>
+        <li>Oltre a stilizzare l'interfaccia, abbiamo bisogno di controllare i valori del nostro form, usiamo <code>*ngIF="signUpForm('username').valid"</code> e stampiamo un hint quando è vuoto</li>
+        <li><b class="text-danger">DIY</b> Aggiungiamo <code>touched</code></li>
+        <li><b class="text-danger">DIY</b> Aggiungiamo la validazione per la mail</li>
+    </ul>
+</app-step>
+
+<app-step title="04- Grouping">
+    <ul>
+        <li>Un gruppo è come un "sotto form", ergo usiamo un altro oggetto <code>userData</code> per contenere <code>username</code> <code>email</code>, usiamo <code>'userData': new FormGroup</code></li>
+        <li><b>Nota dolente</b>, dobbiamo specificare il formGroup anche nell'html... aggiungendo div e  <code>formGroupName="userData"</code></li>
+        <li><b class="text-danger">DIY</b>: Oh no. La validazione si è rotta, usando l'attributo path dei singoli input, sistemiamola cambiando il parametro all'interno dell'ngIf</li>
+    </ul>
+</app-step>
+
+<app-step title="05- List of inputs (array)">
+    <ul>
+        <li>Aggiungiamo una lista di hobby da inserire e/o modificare: <code>'hobbies':new FormArray([])</code></li>
+        <li>Aggiungiamo un pulsante per aggiungere nuovi hobbies, colleghiamolo all funzione <code>addHobby</code></li>
+        <li>Il codice per inserire un nuovo elemento è il seguente: <br>
+            <code>this.signupForm.get('hobbies')).push(new FormContorl(null), Validator.required)</code>, <br>
+            possiamo aggiungere la validazione all'inizio: <code>< FormArray ></code>
+        </li>
+        <li>Prima di stampare la lista degli hobby (modificabili tramite <code>input</code>), aggiungiamo un div padre con <code>formArrayName="hobbies"</code> </li>
+        <li>
+            Per stapmare la lista di un FormArray si usa la seguente sintatti: <br>
+            <code>*ngForm ="let control of getControl(); let i = index" </code> <br>
+            e poi nell'input: <br>
+            <code>[formControlName]="i"</code>
+        </li>
+    </ul>
+</app-step>
+
+
+<app-step title="06- Custom Validator">
+    <ul>
+        <li>Dal nostro log del <code>signupForm</code>, causiamo degli errori e cerchiamo di capire come angular gli gestisce</li>
+        <li>Creiamo un custom validator ora, abbiamo detto che sono delle funzioni, perciò aggiungiamo una funzione <code>forbiddenNames(control:FormControl)</code> al nostro componente</li>
+        <li>Questa funzione ritornerà un oggetto con un indice che ha:
+            <ul>
+                <li>Un codice di errore (stringa di testo)</li>
+                <li>e un valore booleano assegnato</li>
+                <li>Ergo: <code>[s: string]: boolean</code></li>
+            </ul>
+        </li>
+        <li>Scriviamo il codie andando a inserire un array di <code>forbiddenNames per fare il controllo</code></li>
+        <li>Ritorniamo l'oggetto <code>nameIsForbidden: true</code> quando la validazione fallisce  </li>
+        <li><b>IMPORTANTE</b>: Non ritorniamo né un oggetto, né tantomeno <code>false</code> quando la validazione va a buon fine, ma bensì <code>null</code>!</li>
+        <li>Con la struttura di errors: <code>signupForm.get('userdData.username').errors(['nameIsForbidden'])</code> possiamo verificare se uno specifico errore è stato causato!</li>
+
+    </ul>
+</app-step>
+
+<app-step title="07- async Validator">
+    <ul>
+        <li>Invece di far tornare un oggetto, ritorniamo sempre una Promise che si risolverà con il nostro oggetto e codice di errore, oppure con null</li>
+        <li>Impostiamo il codice della promessa</li>
+        <li><b class="text-danger"> DIY: </b> aggiungi un array di <code>forbiddenEmails</code> e completa correttamente la validazione</li>
+        <li>Il nostro form, nel momento in cui la validazione è in corso, avrà lo stato di pending.</li>
+        <li><b class="text-danger"> DIY: </b>Quando la validazione è in corso, stampa l'hint "loading"</li>
+    </ul>
+</app-step>
+
+<app-step title="08- Observables e set Value">
+    <ul>
+        <li>I <code>formGroup</code>, <code>formControl</code> e i <code>formArray</code>hanno tutti due observables interessanti: <code>valueChange</code> o <code>statusChange</code></li>
+        <li>Usiamoli e facciamoci un console.log</li>
+        <li>Per il set del form usiamo sempre <code>this.signupForm.setValue(...)</code> e <code>this.signUpForm.patchValue(...)</code></li>
+        <li>Ultima cosa. <b>Anche i template driven form ce l'hanno.</b> il metodo <code>.reset()</code></li>
+    </ul>
+</app-step>
